@@ -1,32 +1,43 @@
 {
-  "name": "basic-template",
+  "name": "semantic-release-mirror-version",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "A semantic-release plugin that mirrors the version number to additional files in the project. ",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test-watch": "jest --runInBand --watch",
+    "test": "nyc --reporter=lcov --reporter=text-summary ava",
     "pre-commit": "lint-staged",
     "prepare": "husky install",
     "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GarthDB/node-basic-template.git"
+    "url": "https://github.com/GarthDB/semantic-release-mirror-version.git"
   },
   "author": "Garth Braithwaite <garthdb@gmail.com> (http://garthdb.com/)",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/GarthDB/node-basic-template/issues"
+    "url": "https://github.com/GarthDB/semantic-release-mirror-version/issues"
   },
-  "homepage": "https://github.com/GarthDB/node-basic-template#readme",
+  "homepage": "https://github.com/GarthDB/semantic-release-mirror-version#readme",
   "devDependencies": {
-    "@commitlint/cli": "^16.2.0",
-    "@commitlint/config-conventional": "^16.2.1",
-    "husky": "^7.0.4",
-    "jest": "^27.5.1",
-    "lint-staged": "^12.3.4",
-    "prettier": "^2.5.1",
-    "semantic-release": "^19.0.2"
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "ava": "^4.3.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.1",
+    "nyc": "^15.1.0",
+    "prettier": "^2.7.0",
+    "semantic-release": "^19.0.3",
+    "sinon": "^14.0.0"
+  },
+  "dependencies": {
+    "glob": "^8.0.3"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "timeout": "2m",
+    "workerThreads": false
   }
 }
