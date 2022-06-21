@@ -1,7 +1,15 @@
-![tests workflow](https://github.com/GarthDB/node-basic-template/actions/workflows/test.yml/badge.svg)
+![tests workflow](https://github.com/GarthDB/semantic-release-mirror-version/actions/workflows/test.yml/badge.svg)
 
-# Template project
+# Semantic Release Mirror Version
 
-This project can be used as a template for node projects.
+This plugin can write the next release version number to other files, in addition to the `package.json`.
 
-Make sure to add `GH_TOKEN` and `NPM_TOKEN` [secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) to repo for [Semantic Release GitHub action](https://github.com/marketplace/actions/action-for-semantic-release) to be able to version and release the package.
+## Config
+
+### `fileGlob`
+
+This plugin uses [Glob](https://github.com/isaacs/node-glob#glob-primer) to find files to add the version number to.
+
+### `placeholderRegExp`
+
+A RexExp can be defined for finding a string to replace with the version number. The default RegExp is `/0\.0\.0-development/g` to match the default placeholder version in the `package.json` file.
