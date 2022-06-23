@@ -1,3 +1,3 @@
-const verifyRelease = require("./lib/verify-release");
+const prepare = require("./lib/prepare");
 
-module.exports = { verifyRelease };
+module.exports = { prepare };

@@ -1,6 +1,6 @@
 const test = require("ava");
 const { stub } = require("sinon");
-const verifyRelease = require("../index").verifyRelease;
+const prepare = require("../index").prepare;
 const { existsSync, mkdirSync, rmSync } = require("fs");
 const { randomBytes } = require("crypto");
 const { readFile, writeFile, copyFile, access } = require("fs/promises");
@@ -30,7 +30,7 @@ test("Verify release with default RegExp", async (t) => {
   const filename = "./test/tmp/basic.json";
   await copyFile("./test/fixtures/basic.json", filename);
   t.deepEqual(
-    await verifyRelease(
+    await prepare(
       { fileGlob: filename },
       { nextRelease: { version: "12.1.2-beta.43" }, logger: t.context.logger }
     ),
@@ -50,12 +50,12 @@ test("Verify release with custom RegExp", async (t) => {
   const filename = "./test/tmp/regex.json";
   await copyFile("./test/fixtures/regex.json", filename);
   t.deepEqual(
-    await verifyRelease(
+    await prepare(
       {
         fileGlob: filename,
         placeholderRegExp: /0\.0\.0-dev/g,
       },
-      { nextRelease: { version: "12.0.0-beta.34" }, logger: t.context.logger }
+      { nextRelease: { version: "2.1.3" }, logger: t.context.logger }
     ),
     []
   );
@@ -73,7 +73,7 @@ test("should log when no strings match", async (t) => {
   const filename = "./test/tmp/regex-no-match.json";
   await copyFile("./test/fixtures/regex.json", filename);
   t.deepEqual(
-    await verifyRelease(
+    await prepare(
       {
         fileGlob: filename,
         placeholderRegExp: /(?<="ver": *")[^"]*/g,
@@ -96,7 +96,7 @@ test("should convert string placeholderRegExp to RegExp", async (t) => {
   const filename = "./test/tmp/regex-string.json";
   await copyFile("./test/fixtures/regex.json", filename);
   t.deepEqual(
-    await verifyRelease(
+    await prepare(
       {
         fileGlob: filename,
         placeholderRegExp: '(?<="version": *")[^"]*',
@@ -113,4 +113,5 @@ test("should convert string placeholderRegExp to RegExp", async (t) => {
   t.snapshot(result);
   t.true(t.context.log.calledWith("Matched fileGlob files: 1"));
   t.true(t.context.log.calledWith(`File ${filename} match index: 16`));
+  t.true(t.context.log.calledWith(`File, ${filename}, has been written`));
 });
