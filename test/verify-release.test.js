@@ -91,3 +91,26 @@ test("should log when no strings match", async (t) => {
   t.true(t.context.log.calledWith("Matched fileGlob files: 1"));
   t.true(t.context.log.calledWith(`File ${filename} match index: -1`));
 });
+
+test("should convert string placeholderRegExp to RegExp", async (t) => {
+  const filename = "./test/tmp/regex-string.json";
+  await copyFile("./test/fixtures/regex.json", filename);
+  t.deepEqual(
+    await verifyRelease(
+      {
+        fileGlob: filename,
+        placeholderRegExp: '(?<="version": *")[^"]*',
+      },
+      { nextRelease: { version: "2.9.0-alpha.1" }, logger: t.context.logger }
+    ),
+    []
+  );
+  const result = JSON.parse(
+    await readFile(filename, {
+      encoding: "utf8",
+    })
+  );
+  t.snapshot(result);
+  t.true(t.context.log.calledWith("Matched fileGlob files: 1"));
+  t.true(t.context.log.calledWith(`File ${filename} match index: 16`));
+});

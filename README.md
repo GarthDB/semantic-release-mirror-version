@@ -48,6 +48,15 @@ This plugin uses [Glob](https://github.com/isaacs/node-glob#glob-primer) to find
 
 A RexExp can be defined for finding a string to replace with the version number. The default RegExp is `/0\.0\.0-development/g` to match the default placeholder version in the `package.json` file.
 
+If `placeholderRegExp` is a `String` it will be converted to a `RegExp` with a global flag using the `RegExp` constructor:
+
+```js
+pluginConfig.placeholderRegExp = new RegExp(
+  pluginConfig.placeholderRegExp,
+  "g"
+);
+```
+
 ## Example
 
 This example has a JSON file located at `./dist/output.json` and will be published with the new version number `2.3.1-beta.2`
