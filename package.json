@@ -1,6 +1,6 @@
 {
   "name": "semantic-release-mirror-version",
-  "version": "0.0.0-development",
+  "version": "1.1.2",
   "description": "A semantic-release plugin that mirrors the version number to additional files in the project. ",
   "main": "index.js",
   "scripts": {
